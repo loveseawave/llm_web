@@ -1,6 +1,6 @@
 """这个python文件的1目的是通过streamlit库来制作一个前端"""
 import os
-os.system("pip install langchain")
+
 from langchain.memory import ConversationBufferMemory # 导入记忆类
 import streamlit as st # 导入前端库streamlit
 
@@ -20,6 +20,10 @@ st.markdown("[模型查阅请见ollama官网](https://ollama.fan/)")
 # 安装模型
 pull_model = st.button(f"安装{use_model}模型")
 st.session_state["use_model"] = use_model
+
+if pull_model:
+    with st.spinner("模块安装中"):
+        os.system(f"ollama pull {use_model}")
 
 # 遍历st.session_state，将其展示在屏幕上
 for message in st.session_state["content"]:
